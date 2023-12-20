@@ -51,14 +51,15 @@
                     form.setAttribute('method', 'POST');
                     form.setAttribute('action', url);
 
-                    // Create a hidden input field for the data
-                    const input = document.createElement('input');
-                    input.setAttribute('type', 'hidden');
-                    input.setAttribute('name', 'msg');
-                    input.setAttribute('value', this.inputText);
+                    // Create a hidden textarea for the JSON data
+                    const textarea = document.createElement('textarea');
+                    textarea.setAttribute('name', 'msg');
+                    textarea.style.display = 'none';  // Hide the textarea
+                    const urlEncodedData = encodeURIComponent(JSON.stringify({ msg: this.inputText }));
+                    console.log(urlEncodedData)
 
-                    // Append the input field to the form
-                    form.appendChild(input);
+                    // Append the textarea to the form
+                    form.appendChild(textarea);
 
                     // Append the form to the document body
                     document.body.appendChild(form);
@@ -73,6 +74,7 @@
                 }
             }
         }
+
 
 
 
