@@ -1,0 +1,19 @@
+{
+  "Note": "以上内容为AI生成，不代表开发者立场，请勿删除或修改本标记",
+  "Choices": [
+    {
+      "FinishReason": "",
+      "Delta": {
+        "Role": "assistant",
+        "Content": "1"
+      }
+    }
+  ],
+  "Created": 1700549760,
+  "Id": "148b89ef-14e1-489f-8e70-b767e5b27d56",
+  "Usage": {
+    "PromptTokens": 4,
+    "CompletionTokens": 2,
+    "TotalTokens": 6
+  }
+}

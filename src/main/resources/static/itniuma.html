@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Parser</title>
+
+    <!-- 引入Vue的CDN链接 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
+    <!-- 引入Element UI的CDN链接 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.15.3/lib/theme-chalk/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.15.3/lib/index.js"></script>
+
+    <!-- 引入解析Markdown的CDN链接 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@2.0.0/marked.min.js"></script>
+    <!-- 引入axios的CDN链接 -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+
+<div id="app">
+    <el-container>
+        <el-header>
+            <h2>文本问答</h2>
+        </el-header>
+        <el-main>
+            <el-input v-model="inputText" placeholder="请输入文本" style="width: 80%; margin-bottom: 10px;"></el-input>
+            <el-button @click="submitText" type="success">提交</el-button>
+            <div v-html="parsedMarkdown" style="margin-top: 20px; border: 1px solid #ccc; padding: 10px;"></div>
+        </el-main>
+    </el-container>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            inputText: '',
+            parsedMarkdown: '',
+        },
+        methods: {
+            submitText: function () {
+                if (this.inputText !== null && this.inputText !== "") {
+                    const url = 'http://localhost:8080/api/write';
+
+                    // Create a hidden form
+                    const form = document.createElement('form');
+                    form.setAttribute('method', 'POST');
+                    form.setAttribute('action', url);
+
+                    // Create a hidden input field for the data
+                    const input = document.createElement('input');
+                    input.setAttribute('type', 'hidden');
+                    input.setAttribute('name', 'msg');
+                    input.setAttribute('value', this.inputText);
+
+                    // Append the input field to the form
+                    form.appendChild(input);
+
+                    // Append the form to the document body
+                    document.body.appendChild(form);
+
+                    // Submit the form
+                    form.submit();
+                } else {
+                    this.$message({
+                        message: '提交失败，请检查是否为空',
+                        type: 'error'
+                    });
+                }
+            }
+        }
+
+
+
+    });
+</script>
+
+</body>
+</html>
